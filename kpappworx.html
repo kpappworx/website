@@ -29,6 +29,7 @@
             overflow-x: hidden;
         }
 
+        /* 🔥 HEADER ANIMATION */
         .header {
             position: fixed;
             top: 0;
@@ -41,7 +42,9 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            animation: slideDown 0.6s ease-in-out;
+            opacity: 0;
+            transform: translateY(-100%);
+            animation: slideDown 0.8s ease-in-out forwards;
         }
 
         @keyframes slideDown {
@@ -64,7 +67,6 @@
         .nav-links a {
             color: var(--color-text-primary);
             text-decoration: none;
-            position: relative;
             transition: color 0.3s ease;
             cursor: pointer;
         }
@@ -87,6 +89,7 @@
             transform: scale(1.05);
         }
 
+        /* 🔥 HERO SECTION */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -94,6 +97,8 @@
             justify-content: center;
             text-align: center;
             padding: 5%;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-in-out 0.5s forwards;
         }
 
         .hero h1 {
@@ -101,7 +106,6 @@
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fadeIn 1.2s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -113,6 +117,7 @@
             }
         }
 
+        /* 🔥 SOLUTIONS CARDS */
         .solutions {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -127,10 +132,9 @@
             border-radius: 15px;
             text-align: center;
             backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            transform: translateY(20px);
             opacity: 0;
-            animation: fadeUp 0.8s ease-in-out forwards;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease-in-out 0.5s forwards;
         }
 
         @keyframes fadeUp {
@@ -144,12 +148,7 @@
             }
         }
 
-        .solution-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
-        }
-
-        /* Contact Modal */
+        /* 🔥 CONTACT MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -165,18 +164,6 @@
             width: 80%;
             max-width: 400px;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            animation: popUp 0.3s ease-in-out;
-        }
-
-        @keyframes popUp {
-            from {
-                transform: translate(-50%, -55%);
-                opacity: 0;
-            }
-            to {
-                transform: translate(-50%, -50%);
-                opacity: 1;
-            }
         }
 
         .modal a {
@@ -227,7 +214,7 @@
         <section class="hero">
             <div class="hero-content">
                 <h1>Intelligent AI Solutions</h1>
-                <p>Revolutionize your business with cutting-edge AI technologies that transform data into actionable insights.</p>
+                <p>Revolutionize your business with cutting-edge AI technologies.</p>
                 <div style="margin-top: 2rem;">
                     <a href="#" class="cta-button">Start Free Trial</a>
                 </div>
@@ -250,11 +237,9 @@
         </section>
     </main>
 
-    <!-- Contact Modal -->
     <div id="contactModal" class="modal">
         <h3>Contact Us</h3>
         <p>Email: <a href="mailto:kpappworx@gmail.com">kpappworx@gmail.com</a></p>
-        <p>Phone: <a href="tel:1234567834">1234567834</a></p>
         <button onclick="closeContactModal()">Close</button>
     </div>
 

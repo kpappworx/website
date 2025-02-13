@@ -27,30 +27,6 @@
             color: var(--color-text-primary);
             line-height: 1.6;
             overflow-x: hidden;
-            perspective: 1px;
-        }
-
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.05;
-            background-image: 
-                linear-gradient(
-                    rgba(10, 10, 26, 0.8), 
-                    rgba(10, 10, 26, 0.8)
-                ),
-                url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="200" height="200" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-            z-index: 100;
-        }
-
-        .glassmorphic-nav {
-            backdrop-filter: blur(15px);
-            background: rgba(15, 15, 40, 0.7);
-            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
         }
 
         .header {
@@ -58,32 +34,13 @@
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .nav {
+            background: rgba(15, 15, 40, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 5%;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: pulse 2s infinite alternate;
+            z-index: 1000;
         }
 
         .nav-links {
@@ -97,21 +54,11 @@
             text-decoration: none;
             position: relative;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: var(--color-primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-links a:hover {
+            color: var(--color-primary);
         }
 
         .cta-button {
@@ -120,29 +67,12 @@
             padding: 10px 20px;
             border-radius: 30px;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
+            cursor: pointer;
             transition: transform 0.3s ease;
         }
 
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg, 
-                transparent, 
-                rgba(255,255,255,0.3), 
-                transparent
-            );
-            transition: all 0.5s ease;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
+        .cta-button:hover {
+            transform: scale(1.05);
         }
 
         .hero {
@@ -151,33 +81,14 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
-            padding: 0 5%;
+            padding: 5%;
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            animation: floating 3s ease-in-out infinite alternate;
-        }
-
-        .hero-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
         }
 
         .solutions {
@@ -195,23 +106,6 @@
             text-align: center;
             backdrop-filter: blur(10px);
             transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .solution-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(
-                circle at center, 
-                rgba(0, 255, 255, 0.1), 
-                transparent 70%
-            );
-            animation: rotate 10s linear infinite;
         }
 
         .solution-card:hover {
@@ -219,19 +113,44 @@
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 15, 40, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            z-index: 1001;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
 
-        @keyframes floating {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-20px); }
+        .modal a {
+            color: #00ffff;
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .modal button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #00ffff;
+            border: none;
+            color: black;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .modal button:hover {
+            background: #4b0082;
+            color: white;
         }
 
         @media (max-width: 768px) {
@@ -242,18 +161,15 @@
     </style>
 </head>
 <body>
-    <div class="noise-overlay"></div>
 
-    <header class="header glassmorphic-nav">
+    <header class="header">
         <nav class="nav">
             <div class="logo">
-                <div class="logo-icon">AI</div>
                 <h2>KPAppWorx</h2>
             </div>
             <div class="nav-links">
                 <a href="#solutions">Solutions</a>
-                <a href="#use-cases">Use Cases</a>
-                <a href="#contact">Contact</a>
+                <a href="#" onclick="openContactModal()">Contact</a>
                 <a href="#" class="cta-button">Request Demo</a>
             </div>
         </nav>
@@ -261,68 +177,48 @@
 
     <main>
         <section class="hero">
-            <div class="hero-particles" id="particles-js"></div>
             <div class="hero-content">
                 <h1>Intelligent AI Solutions</h1>
-                <p>Revolutionize your business with cutting-edge AI technologies that transform data into actionable insights and intelligent workflows.</p>
+                <p>Revolutionize your business with cutting-edge AI technologies that transform data into actionable insights.</p>
                 <div style="margin-top: 2rem;">
                     <a href="#" class="cta-button">Start Free Trial</a>
                 </div>
             </div>
         </section>
 
-        <section class="solutions">
+        <section id="solutions" class="solutions">
             <div class="solution-card">
                 <h3>Predictive Analytics</h3>
-                <p>Advanced machine learning algorithms that forecast trends and identify opportunities.</p>
+                <p>Advanced AI models to forecast trends and market opportunities.</p>
             </div>
             <div class="solution-card">
                 <h3>Workflow Automation</h3>
-                <p>Intelligent process automation that adapts and learns from your unique business patterns.</p>
+                <p>AI-powered automation to streamline your business processes.</p>
             </div>
             <div class="solution-card">
                 <h3>AI Intelligence</h3>
-                <p>Transform raw data into comprehensive, real-time business insights and strategies.</p>
+                <p>Transform raw data into real-time business insights.</p>
             </div>
         </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <h3>Contact Us</h3>
+        <p>Email: <a href="mailto:kpappworx@gmail.com">kpappworx@gmail.com</a></p>
+        <p>Phone: <a href="tel:1234567834">1234567834</a></p>
+        <button onclick="closeContactModal()">Close</button>
+    </div>
+
     <script>
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: '#00ffff' },
-                shape: { type: 'circle' },
-                opacity: { value: 0.5, random: false },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#00ffff',
-                    opacity: 0.4,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 6,
-                    direction: 'none',
-                    random: false,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: true, mode: 'repulse' },
-                    onclick: { enable: true, mode: 'push' },
-                    resize: true
-                }
-            },
-            retina_detect: true
-        });
+        function openContactModal() {
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        function closeContactModal() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
     </script>
+
 </body>
 </html>

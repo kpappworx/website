@@ -149,6 +149,60 @@
             z-index: 1;
         }
 
+        .solutions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .solution-card {
+            background: rgba(30, 30, 60, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle at center, 
+                rgba(0, 255, 255, 0.1), 
+                transparent 70%
+            );
+            animation: rotate 10s linear infinite;
+        }
+
+        .solution-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .solution-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .solution-card p {
+            position: relative;
+            z-index: 1;
+        }
+
         .apps-section {
             padding: 6rem 5% 4rem;
             display: flex;
@@ -201,6 +255,8 @@
             color: var(--color-primary);
             margin-bottom: 1rem;
             font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .app-card p {
@@ -252,6 +308,8 @@
             margin-top: 3rem;
             width: 100%;
             max-width: 600px;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-info {
@@ -274,6 +332,10 @@
         }
 
         @media (max-width: 768px) {
+            .solutions {
+                grid-template-columns: 1fr;
+            }
+            
             .apps-grid {
                 grid-template-columns: 1fr;
             }
@@ -294,6 +356,7 @@
                 <h2>KPAppWorx</h2>
             </div>
             <div class="nav-links">
+                <a href="#solutions">Solutions</a>
                 <a href="#apps">Apps</a>
             </div>
         </nav>
@@ -304,7 +367,22 @@
             <div class="hero-particles" id="particles-js"></div>
             <div class="hero-content">
                 <h1>Intelligent AI Solutions</h1>
-                <p>Revolutionize your life with our innovative iOS apps powered by cutting-edge AI technologies.</p>
+                <p>Revolutionize your business with cutting-edge AI technologies that transform data into actionable insights and intelligent workflows.</p>
+            </div>
+        </section>
+
+        <section id="solutions" class="solutions">
+            <div class="solution-card">
+                <h3>Predictive Analytics</h3>
+                <p>Advanced machine learning algorithms that forecast trends and identify opportunities.</p>
+            </div>
+            <div class="solution-card">
+                <h3>Workflow Automation</h3>
+                <p>Intelligent process automation that adapts and learns from your unique business patterns.</p>
+            </div>
+            <div class="solution-card">
+                <h3>AI Intelligence</h3>
+                <p>Transform raw data into comprehensive, real-time business insights and strategies.</p>
             </div>
         </section>
 

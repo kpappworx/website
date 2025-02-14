@@ -114,37 +114,6 @@
             width: 100%;
         }
 
-        .cta-button {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg, 
-                transparent, 
-                rgba(255,255,255,0.3), 
-                transparent
-            );
-            transition: all 0.5s ease;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
         .hero {
             min-height: 100vh;
             display: flex;
@@ -180,14 +149,23 @@
             z-index: 1;
         }
 
-        .solutions {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            padding: 4rem 5%;
+        .apps-section {
+            padding: 6rem 5% 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
         }
 
-        .solution-card {
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .app-card {
             background: rgba(30, 30, 60, 0.5);
             border: 1px solid rgba(0, 255, 255, 0.2);
             padding: 2rem;
@@ -199,7 +177,7 @@
             overflow: hidden;
         }
 
-        .solution-card::before {
+        .app-card::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -214,9 +192,70 @@
             animation: rotate 10s linear infinite;
         }
 
-        .solution-card:hover {
+        .app-card:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .app-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .app-card p {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-link {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        .app-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg, 
+                transparent, 
+                rgba(255,255,255,0.3), 
+                transparent
+            );
+            transition: all 0.5s ease;
+        }
+
+        .app-link:hover::before {
+            left: 100%;
+        }
+
+        .contact-card {
+            background: rgba(30, 30, 60, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            margin-top: 3rem;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .contact-info {
+            color: var(--color-primary);
         }
 
         @keyframes pulse {
@@ -235,8 +274,12 @@
         }
 
         @media (max-width: 768px) {
-            .solutions {
+            .apps-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -251,8 +294,7 @@
                 <h2>KPAppWorx</h2>
             </div>
             <div class="nav-links">
-                <a href="#solutions">Solutions</a>
-                <a href="#use-cases">Use Cases</a>
+                <a href="#apps">Apps</a>
             </div>
         </nav>
     </header>
@@ -262,66 +304,69 @@
             <div class="hero-particles" id="particles-js"></div>
             <div class="hero-content">
                 <h1>Intelligent AI Solutions</h1>
-                <p>Revolutionize your business with cutting-edge AI technologies that transform data into actionable insights and intelligent workflows.</p>
+                <p>Revolutionize your life with our innovative iOS apps powered by cutting-edge AI technologies.</p>
             </div>
         </section>
 
-        <section class="solutions">
-            <div class="solution-card">
-                <h3>Predictive Analytics</h3>
-                <p>Advanced machine learning algorithms that forecast trends and identify opportunities.</p>
+        <section id="apps" class="apps-section">
+            <div class="apps-grid">
+                <div class="app-card">
+                    <h3>Gratitudes Jar</h3>
+                    <p>Cultivate mindfulness and appreciation in your daily life with our thoughtfully designed gratitude journaling app.</p>
+                    <a href="https://apps.apple.com/in/app/gratitudes-jar/id6736903470" class="app-link">Download Now</a>
+                </div>
+                <div class="app-card">
+                    <h3>SVA - SelfCareVirtualAssistant</h3>
+                    <p>Your personal AI-powered companion for maintaining mental well-being and practicing effective self-care.</p>
+                    <a href="https://apps.apple.com/in/app/sva-selfcarevirtualassistant/id6741071147" class="app-link">Download Now</a>
+                </div>
             </div>
-            <div class="solution-card">
-                <h3>Workflow Automation</h3>
-                <p>Intelligent process automation that adapts and learns from your unique business patterns.</p>
+
+            <div class="contact-card">
+                <h2>Contact Us</h2>
+                <p>Email: <span class="contact-info">kpappworx@gmail.com</span></p>
+                <p>Phone: <span class="contact-info">+91 9591646805</span></p>
             </div>
-            <div class="solution-card">
-                <h3>AI Intelligence</h3>
-                <p>Transform raw data into comprehensive, real-time business insights and strategies.</p>
-            </div>
-<div class="contact-card">
-    <h2>Contact Us</h2>
-    <p>Email: <span class="contact-info">kpappworx@gmail.com</span></p>
-    <p>Phone: <span class="contact-info">+91 9591646805</span></p>
-</div>
         </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: '#00ffff' },
-                shape: { type: 'circle' },
-                opacity: { value: 0.5, random: false },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#00ffff',
-                    opacity: 0.4,
-                    width: 1
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: '#00ffff' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: false },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#00ffff',
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 6,
+                        direction: 'none',
+                        random: false,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
                 },
-                move: {
-                    enable: true,
-                    speed: 6,
-                    direction: 'none',
-                    random: false,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: true, mode: 'repulse' },
-                    onclick: { enable: true, mode: 'push' },
-                    resize: true
-                }
-            },
-            retina_detect: true
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'repulse' },
+                        onclick: { enable: true, mode: 'push' },
+                        resize: true
+                    }
+                },
+                retina_detect: true
+            });
         });
     </script>
 </body>

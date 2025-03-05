@@ -16,6 +16,12 @@
     flex-shrink: 0; /* Prevent logo from shrinking */
 }
 
+.logo img {
+    width: 50px; /* Adjust logo size */
+    height: auto;
+    max-height: 50px; /* Prevent it from being too large */
+}
+
 .nav-links {
     display: flex;
     align-items: center;
@@ -36,6 +42,11 @@
         margin-bottom: var(--spacing-sm);
         width: 100%;
         justify-content: center;
+    }
+
+    .logo img {
+        width: 40px; /* Smaller logo for mobile */
+        max-height: 40px;
     }
 
     .nav-links {
@@ -66,6 +77,11 @@
 
     .logo h2 {
         font-size: 1.5rem; /* Smaller text on very small screens */
+    }
+
+    .logo img {
+        width: 35px; /* Even smaller for very small screens */
+        max-height: 35px;
     }
 
     .nav-links {
@@ -100,3 +116,4 @@
     box-shadow: 0 0 25px #00ffff, 0 0 50px #00ffff;
     transition: all 0.3s ease-in-out;
 }
+

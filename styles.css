@@ -17,9 +17,9 @@
 }
 
 .logo img {
-    width: 50px; /* Adjust logo size */
-    height: auto;
-    max-height: 50px; /* Prevent it from being too large */
+    width: 120px; /* Adjust this value */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 100%;
 }
 
 .nav-links {

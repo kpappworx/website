@@ -17,9 +17,10 @@
 }
 
 .logo img {
-    width: 120px; /* Adjust this value */
+    width: 10px; /* Adjust this value */
     height: auto; /* Maintain aspect ratio */
     max-width: 100%;
+    object-fit: contain;
 }
 
 .nav-links {

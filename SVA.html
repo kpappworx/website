@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVA - Selfcare AI | Your AI-powered selfcare companion</title>
+    <style>
+        /* Custom Variables */
+        :root {
+            --primary-dark: #5D4787;
+            --primary-medium: #8A7CB0;
+            --primary-light: #BFB5D7;
+            --accent-gold: #D4AF37;
+            --accent-light: #F2E8C0;
+            --calm-white: #FAF9FC;
+            --text-dark: #3A3044;
+            --text-medium: #635C74;
+            --text-light: #FAF9FC;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-medium);
+            background-color: var(--calm-white);
+            transition: background-color 0.5s ease;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-medium);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        a:hover {
+            color: var(--accent-gold);
+        }
+
+        a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-gold);
+            transition: width 0.4s ease;
+        }
+
+        a:hover:after {
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:after {
+            display: none;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn:hover:before {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-gold);
+            color: var(--text-dark);
+            border: none;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(212, 175, 55, 0.3);
+            color: var(--text-dark);
+        }
+
+        .section {
+            padding: 7rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-gold);
+            margin: 1rem auto 0;
+            transition: width 0.5s ease;
+        }
+
+        .section-title:hover:after {
+            width: 80px;
+        }
+        
+        /* Floating Elements Animation */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            filter: blur(15px);
+            z-index: 0;
+            animation: float 15s infinite alternate ease-in-out;
+        }
+        
+        .floating-element.one {
+            width: 300px;
+            height: 300px;
+            background-color: var(--primary-light);
+            top: -100px;
+            left: -100px;
+            animation-duration: 25s;
+        }
+        
+        .floating-element.two {
+            width: 200px;
+            height: 200px;
+            background-color: var(--accent-light);
+            bottom: -50px;
+            right: -50px;
+            animation-duration: 20s;
+            animation-delay: 5s;
+        }
+        
+        .floating-element.three {
+            width: 150px;
+            height: 150px;
+            background-color: var(--primary-medium);
+            top: 30%;
+            right: 10%;
+            animation-duration: 18s;
+            animation-delay: 2s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(-20px, 30px) rotate(5deg);
+            }
+            50% {
+                transform: translate(20px, -15px) rotate(-5deg);
+            }
+            75% {
+                transform: translate(-30px, -30px) rotate(7deg);
+            }
+            100% {
+                transform: translate(20px, 20px) rotate(-7deg);
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            padding: 1.5rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(250, 249, 252, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(93, 71, 135, 0.07);
+            transition: all 0.4s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 1rem 0;
+            background-color: rgba(250, 249, 252, 0.97);
+            box-shadow: 0 5px 20px rgba(93, 71, 135, 0.1);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .logo:after {
+            display: none;
+        }
+        
+        .logo:before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-gold);
+            bottom: 5px;
+            right: -10px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover:before {
+            transform: scale(1.3);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-medium);
+            font-weight: 500;
+            padding: 8px 0;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:after {
+            background-color: var(--primary-medium);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-dark);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-text);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 12rem 0 7rem;
+            background: linear-gradient(145deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="white" opacity="0.3"/></svg>');
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-image {
+            max-width: 100%;
+            margin-top: 3rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-radius: 25px;
+            transform: perspective(1000px) rotateX(5deg);
+            transition: all 0.5s ease;
+            animation: floatImage 6s ease-in-out infinite;
+        }
+        
+        .hero-image:hover {
+            transform: perspective(1000px) rotateX(0deg) scale(1.02);
+        }
+        
+        @keyframes floatImage {
+            0%, 100% {
+                transform: perspective(1000px) rotateX(5deg) translateY(0);
+            }
+            50% {
+                transform: perspective(1000px) rotateX(5deg) translateY(-15px);
+            }
+        }
+
+        .app-store-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-store-btn:after {
+            display: none;
+        }
+        
+        .app-store-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+            transition: all 0.5s ease;
+            z-index: 1;
+        }
+
+        .app-store-btn svg {
+            margin-right: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .app-store-btn:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            color: #fff;
+        }
+        
+        .app-store-btn:hover:before {
+            width: 200%;
+            left: -50%;
+        }
+        
+        .app-store-btn:hover svg {
+            transform: scale(1.1);
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--calm-white);
+            position: relative;
+        }
+        
+        .about .floating-element.one {
+            width: 250px;
+            height: 250px;
+            left: -80px;
+            top: 30%;
+        }
+        
+        .about .floating-element.two {
+            width: 180px;
+            height: 180px;
+            right: -80px;
+            bottom: 20%;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2.5rem 2rem;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(93, 71, 135, 0.07);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(191, 181, 215, 0.2);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s forwards;
+            animation-delay: calc(var(--delay, 0) * 0.2s);
+        }
+        
+        .feature-card:nth-child(1) { --delay: 1; }
+        .feature-card:nth-child(2) { --delay: 2; }
+        .feature-card:nth-child(3) { --delay: 3; }
+        .feature-card:nth-child(4) { --delay: 4; }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-light), var(--accent-light));
+            top: 0;
+            left: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 35px rgba(93, 71, 135, 0.1);
+            border-color: rgba(191, 181, 215, 0.5);
+        }
+        
+        .feature-card:hover:before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-medium) 0%, var(--primary-light) 100%);
+            color: var(--text-light);
+            border-radius: 50%;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 20px rgba(93, 71, 135, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 25px rgba(93, 71, 135, 0.25);
+        }
+        
+        .feature-card h3 {
+            transition: all 0.3s ease;
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .feature-card:hover h3 {
+            color: var(--primary-dark);
+        }
+        
+        .feature-card p {
+            color: var(--text-medium);
+            font-weight: 300;
+            line-height: 1.7;
+            transition: all 0.3s ease;
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            background-color: var(--primary-light);
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 80%);
+            padding-bottom: 7rem;
+            position: relative;
+        }
+        
+        .screenshots .floating-element.three {
+            width: 200px;
+            height: 200px;
+            background-color: rgba(212, 175, 55, 0.1);
+            top: 10%;
+            left: 10%;
+        }
+        
+        .screenshots:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><path d="M30,30 L270,30 L270,270 L30,270 Z" fill="none" stroke="white" stroke-width="0.5" opacity="0.2"/></svg>');
+            opacity: 0.1;
+            background-size: 150px;
+        }
+
+        .screenshot-wrapper {
+            overflow-x: auto;
+            display: flex;
+            gap: 2.5rem;
+            padding: 2rem 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            z-index: 5;
+        }
+
+        .screenshot-wrapper::-webkit-scrollbar {
+            height: 8
+
+        /* Benefits Section */
+        .benefits {
+            background-color: #fff;
+        }
+
+        .benefits-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .benefit-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .benefit-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple-light) 100%);
+            text-align: center;
+        }
+
+        .testimonial-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            max-width: 350px;
+            position: relative;
+            border-top: 3px solid var(--gold);
+        }
+
+        .testimonial-card:before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--gold-light);
+            font-family: Georgia, serif;
+            line-height: 1;
+            opacity: 0.7;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .testimonial-author:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        /* CTA Section */
+        .cta {
+            background-color: var(--purple-dark);
+            background-image: linear-gradient(45deg, var(--purple-dark) 0%, var(--purple-light) 100%);
+            color: var(--light-text);
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gold);
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .app-store-btn {
+            background-color: var(--gold);
+            color: var(--dark-text);
+            font-weight: 700;
+        }
+
+        .cta .app-store-btn:hover {
+            background-color: var(--gold-light);
+            color: var(--dark-text);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--dark-text);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        /* Mobile Styles */
+        @media screen and (max-width: 768px) {
+            .navbar .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                margin-top: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            }
+
+            .hamburger {
+                display: block;
+                position: absolute;
+                top: 1.5rem;
+                right: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .screenshot-wrapper {
+                padding: 1rem 0;
+            }
+
+            .testimonial-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo" style="color: var(--gold);">SVA</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#screenshots">Screenshots</a></li>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>SVA – Selfcare AI</h1>
+                <p>Your AI-powered selfcare companion</p>
+                <a href="https://apps.apple.com/in/app/sva-selfcare-ai/id6741071147" class="app-store-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.5227 12.0599C17.5053 9.3199 19.7477 8.0399 19.8429 7.9799C18.6429 6.1999 16.7859 5.9999 16.1305 5.9799C14.5477 5.8199 13.0229 6.9199 12.2229 6.9199C11.4229 6.9199 10.1553 5.9999 8.83529 5.9999C7.11529 6.0199 5.52229 7.0199 4.63529 8.5999C2.83529 11.7999 4.20229 16.4999 5.95529 19.1599C6.83529 20.4599 7.87529 21.9199 9.23529 21.8599C10.5553 21.7999 11.0629 20.9999 12.6429 20.9999C14.2429 20.9999 14.6929 21.8599 16.0753 21.8199C17.5053 21.7999 18.4053 20.5199 19.2653 19.2199C20.2853 17.7199 20.7053 16.2399 20.7229 16.1599C20.6853 16.1199 17.5403 14.8199 17.5227 12.0599Z" fill="white"/>
+                        <path d="M15.0173 4.2401C15.7373 3.3801 16.2173 2.1801 16.0773 1.0001C15.0373 1.0401 13.7773 1.7001 13.0373 2.5401C12.3773 3.2801 11.7973 4.5001 11.9573 5.6401C13.1173 5.7201 14.2773 5.1001 15.0173 4.2401Z" fill="white"/>
+                    </svg>
+                    Download on App Store
+                </a>
+                <img src="/api/placeholder/800/600" alt="SVA App Hero Image" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title">About SVA</h2>
+            <p class="section-description" style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
+                SVA is your AI-powered selfcare companion designed for professionals and entrepreneurs. 
+                Track your wellness, journaling, and daily rituals with intelligent insights that help you thrive.
+            </p>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 6V12L16 14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Daily Check-ins</h3>
+                    <p>Quick and meaningful check-ins to track your mood, energy levels, and overall wellness throughout the day.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 21V19C6 17.9391 6.42143 16.9217 7.17157 16.1716C7.92172 15.4214 8.93913 15 10 15H14C15.0609 15 16.0783 15.4214 16.8284 16.1716C17.5786 16.9217 18 17.9391 18 19V21" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Journaling</h3>
+                    <p>Express your thoughts and feelings with guided journaling prompts personalized to your needs and goals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>AI Suggestions</h3>
+                    <p>Receive personalized recommendations, insights, and activities based on your goals and emotional patterns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.85999" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M22 4L12 14.01L9 11.01" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Habit Tracking</h3>
+                    <p>Build and maintain positive self-care habits with personalized tracking and gentle reminders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="section screenshots" id="screenshots">
+        <div class="container">
+            <h2 class="section-title">App Screenshots</h2>
+            <div class="screenshot-wrapper">
+                <div class="screenshot-item">
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <img src="/api/placeholder/260/520" alt="SVA App Screenshot - Dashboard" class="screen-content">
+                        </div>
+                    </div>
+                </div>
+                <div class="screenshot-item">
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <img src="/api/placeholder/260/520" alt="SVA App Screenshot - Journaling" class="screen-content">
+                        </div>
+                    </div>
+                </div>
+                <div class="screenshot-item">
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <img src="/api/placeholder/260/520" alt="SVA App Screenshot - AI Suggestions" class="screen-content">
+                        </div>
+                    </div>
+                </div>
+                <div class="screenshot-item">
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <img src="/api/placeholder/260/520" alt="SVA App Screenshot - Habit Tracking" class="screen-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section benefits" id="benefits">
+        <div class="container">
+            <h2 class="section-title">Benefits</h2>
+            <div class="benefits-wrapper">
+                <div class="benefit-card">
+                    <h3 class="benefit-title">Mental Wellness</h3>
+                    <p>SVA helps you track your mental health patterns, identify stressors, and develop coping strategies. Our AI analyzes your journaling entries to provide personalized insights for emotional balance.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3 class="benefit-title">Productivity</h3>
+                    <p>Transform your self-care routines into productivity boosters. SVA helps you identify the wellness practices that enhance your focus and energy, creating tailored routines that fit your professional life.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3 class="benefit-title">Mindfulness</h3>
+                    <p>Build a deeper connection with yourself through guided mindfulness practices. SVA's personalized meditation and breathing exercises help reduce stress and increase present-moment awareness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Users Say</h2>
+            <div class="testimonial-wrapper">
+                <div class="testimonial-card">
+                    <p class="testimonial-content">SVA has completely transformed my daily routine. The AI suggestions are spot-on, and I've noticed a significant improvement in my stress levels since I started using it.</p>
+                    <p class="testimonial-author">- Sarah K., Entrepreneur</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-content">As a busy professional, I never found time for self-care until SVA. The app makes it so easy to track habits and journal that it's become part of my daily workflow.</p>
+                    <p class="testimonial-author">- Michael L., Marketing Director</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-content">The journaling feature with AI insights has been a game-changer for my mental health. It's like having a personal wellness coach in my pocket at all times.</p>
+                    <p class="testimonial-author">- Priya M., Software Engineer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Start Your Self-Care Journey Today</h2>
+            <p>Join thousands of professionals and entrepreneurs who have transformed their wellbeing with SVA's AI-powered self-care assistant.</p>
+            <a href="https://apps.apple.com/in/app/sva-selfcare-ai/id6741071147" class="app-store-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.5227 12.0599C17.5053 9.3199 19.7477 8.0399 19.8429 7.9799C18.6429 6.1999 16.7859 5.9999 16.1305 5.9799C14.5477 5.8199 13.0229 6.9199 12.2229 6.9199C11.4229 6.9199 10.1553 5.9999 8.83529 5.9999C7.11529 6.0199 5.52229 7.0199 4.63529 8.5999C2.83529 11.7999 4.20229 16.4999 5.95529 19.1599C6.83529 20.4599 7.87529 21.9199 9.23529 21.8599C10.5553 21.7999 11.0629 20.9999 12.6429 20.9999C14.2429 20.9999 14.6929 21.8599 16.0753 21.8199C17.5053 21.7999 18.4053 20.5199 19.2653 19.2199C20.2853 17.7199 20.7053 16.2399 20.7229 16.1599C20.6853 16.1199 17.5403 14.8199 17.5227 12.0599Z" fill="#333"/>
+                    <path d="M15.0173 4.2401C15.

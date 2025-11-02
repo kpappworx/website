@@ -1,1026 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cashchum - AI-powered savings and budgeting app that helps you build wealth effortlessly. Smart budgeting made simple.">
-    <meta property="og:title" content="Cashchum - AI-Powered Savings & Budgeting">
-    <meta property="og:description" content="Build wealth effortlessly with AI-powered savings and smart budgeting tools.">
-    <meta property="og:image" content="https://your-domain.com/og-image.jpg">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Cashchum - AI-Powered Savings & Budgeting">
-    <meta name="twitter:description" content="Build wealth effortlessly with AI-powered savings and smart budgeting tools.">
-    <title>Cashchum - AI-Powered Savings & Budgeting</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💰</text></svg>">
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        /* 
-        ================================
-        CUSTOMIZATION GUIDE
-        ================================
-        
-        1. PRICING UPDATES:
-           - Search for "MONTHLY_PRICE" and "ANNUAL_PRICE" to update pricing
-           - Update the "PERCENT" value for annual savings calculation
-        
-        2. APP SCREENSHOTS:
-           - Replace the placeholder image URLs in the hero section
-           - Look for: background-image: url('data:image/svg+xml...')
-           - Upload your actual app screenshots and replace these URLs
-        
-        3. TRANSLATIONS:
-           - All text has data-i18n attributes for easy i18n implementation
-           - To add translations, create a JS object mapping data-i18n keys to translated strings
-        
-        4. DEPLOYMENT TO GITHUB PAGES:
-           - Push this file as index.html to your repo
-           - Enable GitHub Pages in Settings > Pages
-           - Select main branch and root folder
-           - Your site will be live at: https://username.github.io/repo-name
-        
-        5. ANALYTICS:
-           - Scroll to bottom before </body> tag
-           - Replace the analytics comment with your tracking code (GA, Plausible, etc.)
-        
-        ================================
-        */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #F7F9FA;
-            color: #202833;
-            overflow-x: hidden;
-        }
-        
-        /* Gradient Orb Animation */
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-        }
-        
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 200, 150, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(0, 200, 150, 0.6); }
-        }
-        
-        .animate-fade-up {
-            animation: fadeUp 0.8s ease-out forwards;
-        }
-        
-        .animate-slide-left {
-            animation: slideInLeft 0.8s ease-out forwards;
-        }
-        
-        /* Glassmorphism */
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .glass-dark {
-            background: rgba(32, 40, 51, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Gradient Background */
-        .gradient-bg {
-            background: linear-gradient(135deg, #00C896 0%, #FFD54F 100%);
-        }
-        
-        .gradient-orb {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: linear-gradient(135deg, #00C896, #FFD54F);
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.3;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        /* Header Sticky Blur */
-        header.scrolled {
-            background: rgba(247, 249, 250, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-        }
-        
-        /* Button Styles */
-        .btn-primary {
-            background: linear-gradient(135deg, #00C896, #00A67E);
-            color: white;
-            padding: 14px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
-            text-decoration: none;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 200, 150, 0.3);
-        }
-        
-        .btn-secondary {
-            background: white;
-            color: #202833;
-            padding: 14px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid #202833;
-            cursor: pointer;
-            display: inline-block;
-            text-decoration: none;
-        }
-        
-        .btn-secondary:hover {
-            background: #202833;
-            color: white;
-            transform: translateY(-2px);
-        }
-        
-        /* Feature Cards */
-        .feature-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            padding: 32px;
-            transition: all 0.4s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 200, 150, 0.15);
-            border-color: rgba(0, 200, 150, 0.3);
-        }
-        
-        /* Pricing Toggle */
-        .toggle-switch {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            background: #E5E7EB;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .toggle-switch.active {
-            background: #00C896;
-        }
-        
-        .toggle-slider {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
-            background: white;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .toggle-switch.active .toggle-slider {
-            left: 33px;
-        }
-        
-        /* FAQ Accordion */
-        .faq-item {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 24px 0;
-        }
-        
-        .faq-question {
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            font-size: 18px;
-            transition: color 0.3s ease;
-        }
-        
-        .faq-question:hover {
-            color: #00C896;
-        }
-        
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-            padding-top: 0;
-        }
-        
-        .faq-answer.active {
-            max-height: 300px;
-            padding-top: 16px;
-        }
-        
-        .faq-icon {
-            transition: transform 0.3s ease;
-        }
-        
-        .faq-icon.active {
-            transform: rotate(45deg);
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-        }
-        
-        .mobile-menu.active {
-            max-height: 500px;
-        }
-        
-        /* Hero Phone Mockup */
-        .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: white;
-            border-radius: 40px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            border: 12px solid #202833;
-        }
-        
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #00C896, #FFD54F);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-        }
-        
-        /* Timeline */
-        .timeline-line {
-            position: absolute;
-            top: 40px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #00C896, #FFD54F);
-            z-index: 0;
-        }
-        
-        .timeline-step {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .timeline-circle {
-            width: 80px;
-            height: 80px;
-            background: white;
-            border: 3px solid #00C896;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 30px rgba(0, 200, 150, 0.2);
-        }
-        
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Cashchum — AI chat budgeting with conversation threads and quick expense notes. Plan your month, log spending fast, and stay consistent."/>
+  <meta property="og:title" content="Cashchum — AI Chat Budgeting"/>
+  <meta property="og:description" content="Plan your month with an AI coach, log expenses in chat, and keep momentum with conversation threads."/>
+  <meta property="og:image" content="https://your-domain.com/og-image.jpg"/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Cashchum — AI Chat Budgeting"/>
+  <meta name="twitter:description" content="Plan your month with an AI coach, log expenses in chat, and keep momentum with conversation threads."/>
+  <title>Cashchum — AI Chat Budgeting</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💰</text></svg>"/>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#F7F9FA; color:#202833; overflow-x:hidden; }
+
+    @keyframes float { 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(30px,-30px) scale(1.1);} 66%{transform:translate(-20px,20px) scale(0.9);} }
+    @keyframes fadeUp { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
+    @keyframes slideInLeft { from{opacity:0; transform:translateX(-50px);} to{opacity:1; transform:translateX(0);} }
+    @keyframes glow { 0%,100%{box-shadow:0 0 20px rgba(0,200,150,.3);} 50%{box-shadow:0 0 40px rgba(0,200,150,.6);} }
+    .animate-fade-up { animation: fadeUp .8s ease-out forwards; }
+    .animate-slide-left { animation: slideInLeft .8s ease-out forwards; }
+
+    .glass { background:rgba(255,255,255,.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,.3); }
+    .glass-dark { background:rgba(32,40,51,.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,.1); }
+
+    .gradient-bg { background: linear-gradient(135deg,#00C896 0%,#FFD54F 100%); }
+    .gradient-orb { position:absolute; width:600px; height:600px; background:linear-gradient(135deg,#00C896,#FFD54F); border-radius:50%; filter:blur(100px); opacity:.3; animation: float 8s ease-in-out infinite; }
+
+    header.scrolled { background:rgba(247,249,250,.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow:0 2px 20px rgba(0,0,0,.05); }
+
+    .btn-primary { background:linear-gradient(135deg,#00C896,#00A67E); color:#fff; padding:14px 32px; border-radius:12px; font-weight:600; transition:.3s; border:none; cursor:pointer; display:inline-block; text-decoration:none; }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(0,200,150,.3); }
+    .btn-secondary { background:#fff; color:#202833; padding:14px 32px; border-radius:12px; font-weight:600; transition:.3s; border:2px solid #202833; cursor:pointer; display:inline-block; text-decoration:none; }
+    .btn-secondary:hover { background:#202833; color:#fff; transform:translateY(-2px); }
+
+    .feature-card { background:rgba(255,255,255,.7); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,.3); border-radius:20px; padding:32px; transition:.4s; }
+    .feature-card:hover { transform:translateY(-10px); box-shadow:0 20px 60px rgba(0,200,150,.15); border-color:rgba(0,200,150,.3); }
+
+    .toggle-switch { position:relative; width:60px; height:30px; background:#E5E7EB; border-radius:30px; cursor:pointer; transition:.3s; }
+    .toggle-switch.active { background:#00C896; }
+    .toggle-slider { position:absolute; top:3px; left:3px; width:24px; height:24px; background:#fff; border-radius:50%; transition:.3s; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+    .toggle-switch.active .toggle-slider { left:33px; }
+
+    .faq-item { border-bottom:1px solid rgba(0,0,0,.1); padding:24px 0; }
+    .faq-question { cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:18px; transition:color .3s; }
+    .faq-question:hover { color:#00C896; }
+    .faq-answer { max-height:0; overflow:hidden; transition:max-height .4s ease, padding .4s ease; padding-top:0; }
+    .faq-answer.active { max-height:300px; padding-top:16px; }
+    .faq-icon { transition:transform .3s; }
+    .faq-icon.active { transform:rotate(45deg); }
+
+    .mobile-menu { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+    .mobile-menu.active { max-height:500px; }
+
+    .phone-mockup { width:300px; height:600px; background:#fff; border-radius:40px; box-shadow:0 30px 80px rgba(0,0,0,.3); position:relative; overflow:hidden; border:12px solid #202833; }
+    .phone-screen { width:100%; height:100%; background:linear-gradient(135deg,#00C896,#FFD54F); display:flex; align-items:center; justify-content:center; font-size:48px; }
+
+    .timeline-line { position:absolute; top:40px; left:0; right:0; height:2px; background:linear-gradient(90deg,#00C896,#FFD54F); z-index:0; }
+    .timeline-step { position:relative; z-index:1; }
+    .timeline-circle { width:80px; height:80px; background:#fff; border:3px solid #00C896; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; margin:0 auto 20px; box-shadow:0 10px 30px rgba(0,200,150,.2); }
+
+    html { scroll-behavior:smooth; }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="text-2xl font-bold">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00C896] to-[#FFD54F]" data-i18n="logo">💰 Cashchum</span>
-            </div>
-            
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#features" class="text-[#202833] hover:text-[#00C896] transition-colors font-medium" data-i18n="nav-features">Features</a>
-                <a href="#pricing" class="text-[#202833] hover:text-[#00C896] transition-colors font-medium" data-i18n="nav-pricing">Pricing</a>
-                <a href="#faq" class="text-[#202833] hover:text-[#00C896] transition-colors font-medium" data-i18n="nav-about">About</a>
-                <a href="#download" class="text-[#202833] hover:text-[#00C896] transition-colors font-medium" data-i18n="nav-download">Download</a>
-                <a href="#download" class="btn-primary" data-i18n="nav-cta">Get Started</a>
-            </nav>
-            
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-[#202833] text-2xl">
-                ☰
-            </button>
+  <!-- Header -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="text-2xl font-bold">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00C896] to-[#FFD54F]">💰 Cashchum</span>
+      </div>
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#features" class="text-[#202833] hover:text-[#00C896] transition-colors font-medium">Features</a>
+        <a href="#pricing" class="text-[#202833] hover:text-[#00C896] transition-colors font-medium">Pricing</a>
+        <a href="#faq" class="text-[#202833] hover:text-[#00C896] transition-colors font-medium">FAQ</a>
+        <a href="#download" class="text-[#202833] hover:text-[#00C896] transition-colors font-medium">Download</a>
+        <a href="#download" class="btn-primary">Get Started</a>
+      </nav>
+      <button id="mobile-menu-btn" class="md:hidden text-[#202833] text-2xl">☰</button>
+    </div>
+    <div id="mobile-menu" class="mobile-menu md:hidden bg-white px-6 pb-6">
+      <a href="#features" class="block py-3 text-[#202833] hover:text-[#00C896] font-medium">Features</a>
+      <a href="#pricing" class="block py-3 text-[#202833] hover:text-[#00C896] font-medium">Pricing</a>
+      <a href="#faq" class="block py-3 text-[#202833] hover:text-[#00C896] font-medium">FAQ</a>
+      <a href="#download" class="block py-3 text-[#202833] hover:text-[#00C896] font-medium">Download</a>
+      <a href="#download" class="btn-primary w-full text-center mt-4">Get Started</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20 px-6">
+    <div class="gradient-orb" style="top:-200px; right:-200px;"></div>
+    <div class="gradient-orb" style="bottom:-200px; left:-200px; animation-delay:-4s;"></div>
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <div class="animate-fade-up">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+          Budget smarter<br/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00C896] to-[#FFD54F]">with an AI coach</span>
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+          Plan your month with an AI chat, log expenses fast, and keep momentum with organized conversation threads.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#download" class="btn-primary">Get the app</a>
+          <a href="#how-it-works" class="btn-secondary">See how it works</a>
         </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu md:hidden bg-white px-6 pb-6">
-            <a href="#features" class="block py-3 text-[#202833] hover:text-[#00C896] font-medium" data-i18n="nav-features">Features</a>
-            <a href="#pricing" class="block py-3 text-[#202833] hover:text-[#00C896] font-medium" data-i18n="nav-pricing">Pricing</a>
-            <a href="#faq" class="block py-3 text-[#202833] hover:text-[#00C896] font-medium" data-i18n="nav-about">About</a>
-            <a href="#download" class="block py-3 text-[#202833] hover:text-[#00C896] font-medium" data-i18n="nav-download">Download</a>
-            <a href="#download" class="btn-primary w-full text-center mt-4" data-i18n="nav-cta">Get Started</a>
+        <p class="text-sm text-gray-500 mt-4">No bank connection required • You stay in control</p>
+      </div>
+      <div class="flex justify-center animate-slide-left" style="animation-delay:.2s;">
+        <div class="phone-mockup"><div class="phone-screen">📊</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explainer Strip -->
+  <section class="py-6 bg-[#202833] text-white">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="text-lg font-medium">
+        Join early users building better money habits with conversational guidance and simple expense logging.
+      </p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Smart Features</h2>
+        <p class="text-xl text-gray-600">Everything you need to take control of your finances</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="feature-card">
+          <div class="text-5xl mb-4">🤖</div>
+          <h3 class="text-xl font-bold mb-3">AI chat coaching</h3>
+          <p class="text-gray-600">Ask questions, plan your month, and get practical budgeting guidance in a friendly chat.</p>
         </div>
-    </header>
-    
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20 px-6">
-        <div class="gradient-orb" style="top: -200px; right: -200px;"></div>
-        <div class="gradient-orb" style="bottom: -200px; left: -200px; animation-delay: -4s;"></div>
-        
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
-            <div class="animate-fade-up">
-                <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight" data-i18n="hero-title">
-                    Build Wealth<br/>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00C896] to-[#FFD54F]">Effortlessly</span>
-                </h1>
-                <p class="text-xl text-gray-600 mb-8 leading-relaxed" data-i18n="hero-subtitle">
-                    AI-powered savings and budgeting that works in the background. Save smarter, spend wiser, achieve your financial goals faster.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#download" class="btn-primary" data-i18n="hero-cta-primary">Try Free for 30 Days</a>
-                    <a href="#how-it-works" class="btn-secondary" data-i18n="hero-cta-secondary">Watch Demo</a>
-                </div>
-                <p class="text-sm text-gray-500 mt-4" data-i18n="hero-disclaimer">No credit card required • Cancel anytime</p>
-            </div>
-            
-            <div class="flex justify-center animate-slide-left" style="animation-delay: 0.2s;">
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        📊
-                    </div>
-                </div>
-            </div>
+        <div class="feature-card">
+          <div class="text-5xl mb-4">🗂️</div>
+          <h3 class="text-xl font-bold mb-3">Conversation threads</h3>
+          <p class="text-gray-600">Keep your money topics organized and pick up exactly where you left off.</p>
         </div>
-    </section>
-    
-    <!-- Explainer Strip -->
-    <section class="py-6 bg-[#202833] text-white">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <p class="text-lg font-medium" data-i18n="explainer">
-                Join 100,000+ users who've saved over $50M using Cashchum's intelligent automation
-            </p>
+        <div class="feature-card">
+          <div class="text-5xl mb-4">🧾</div>
+          <h3 class="text-xl font-bold mb-3">Quick expense notes</h3>
+          <p class="text-gray-600">Log “deduct {amount} for {category}” inline while you chat—fast and lightweight.</p>
         </div>
-    </section>
-    
-    <!-- Features Section -->
-    <section id="features" class="py-24 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="features-title">Smart Features</h2>
-                <p class="text-xl text-gray-600" data-i18n="features-subtitle">Everything you need to take control of your finances</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="feature-card">
-                    <div class="text-5xl mb-4">🤖</div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="feature1-title">AI-Powered Insights</h3>
-                    <p class="text-gray-600" data-i18n="feature1-desc">Get personalized recommendations based on your spending patterns and financial goals in real-time.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="text-5xl mb-4">💸</div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="feature2-title">Auto-Save Magic</h3>
-                    <p class="text-gray-600" data-i18n="feature2-desc">Round up purchases and automatically transfer spare change to your savings without thinking about it.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="text-5xl mb-4">📈</div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="feature3-title">Goal Tracking</h3>
-                    <p class="text-gray-600" data-i18n="feature3-desc">Set financial milestones and watch your progress with visual charts and motivating achievement badges.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="text-5xl mb-4">🔔</div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="feature4-title">Smart Alerts</h3>
-                    <p class="text-gray-600" data-i18n="feature4-desc">Receive intelligent notifications about unusual spending, upcoming bills, and better deal opportunities nearby.</p>
-                </div>
-            </div>
+        <div class="feature-card">
+          <div class="text-5xl mb-4">🎚️</div>
+          <h3 class="text-xl font-bold mb-3">Your preferences</h3>
+          <p class="text-gray-600">Choose an AI personality and currency settings that fit your style and region.</p>
         </div>
-    </section>
-    
-    <!-- How It Works -->
-    <section id="how-it-works" class="py-24 px-6 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="how-title">How It Works</h2>
-                <p class="text-xl text-gray-600" data-i18n="how-subtitle">Start saving in three simple steps</p>
-            </div>
-            
-            <div class="relative grid md:grid-cols-3 gap-12">
-                <div class="timeline-line hidden md:block"></div>
-                
-                <div class="timeline-step text-center">
-                    <div class="timeline-circle">1</div>
-                    <h3 class="text-2xl font-bold mb-3" data-i18n="step1-title">Connect Accounts</h3>
-                    <p class="text-gray-600" data-i18n="step1-desc">Securely link your bank accounts with 256-bit encryption in under 60 seconds.</p>
-                </div>
-                
-                <div class="timeline-step text-center">
-                    <div class="timeline-circle">2</div>
-                    <h3 class="text-2xl font-bold mb-3" data-i18n="step2-title">Set Goals</h3>
-                    <p class="text-gray-600" data-i18n="step2-desc">Tell us what you're saving for and our AI creates a personalized plan.</p>
-                </div>
-                
-                <div class="timeline-step text-center">
-                    <div class="timeline-circle">3</div>
-                    <h3 class="text-2xl font-bold mb-3" data-i18n="step3-title">Watch Wealth Grow</h3>
-                    <p class="text-gray-600" data-i18n="step3-desc">Sit back while Cashchum automatically optimizes your savings every day.</p>
-                </div>
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-24 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
+        <p class="text-xl text-gray-600">Start saving in three simple steps</p>
+      </div>
+      <div class="relative grid md:grid-cols-3 gap-12">
+        <div class="timeline-line hidden md:block"></div>
+
+        <div class="timeline-step text-center">
+          <div class="timeline-circle">1</div>
+          <h3 class="text-2xl font-bold mb-3">Start a chat</h3>
+          <p class="text-gray-600">Open Cashchum and talk to your AI coach about budgets, goals, and money questions.</p>
         </div>
-    </section>
-    
-    <!-- Social Proof -->
-    <section class="py-24 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="testimonials-title">Loved by Savers</h2>
-                <p class="text-xl text-gray-600" data-i18n="testimonials-subtitle">Real stories from real users</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass rounded-3xl p-8">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-[#00C896] to-[#FFD54F] rounded-full mr-4"></div>
-                        <div>
-                            <h4 class="font-bold" data-i18n="testimonial1-name">Sarah M.</h4>
-                            <p class="text-sm text-gray-500" data-i18n="testimonial1-role">Teacher</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic" data-i18n="testimonial1-text">"I've saved $5,000 in 6 months without even noticing. The AI suggestions are spot-on and have completely changed how I think about money."</p>
-                </div>
-                
-                <div class="glass rounded-3xl p-8">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-[#FFD54F] to-[#00C896] rounded-full mr-4"></div>
-                        <div>
-                            <h4 class="font-bold" data-i18n="testimonial2-name">James K.</h4>
-                            <p class="text-sm text-gray-500" data-i18n="testimonial2-role">Freelancer</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic" data-i18n="testimonial2-text">"Finally, a budgeting app that doesn't feel like homework. Cashchum runs in the background and just works. Best financial decision I've made."</p>
-                </div>
-                
-                <div class="glass rounded-3xl p-8">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-[#00C896] to-[#FFD54F] rounded-full mr-4"></div>
-                        <div>
-                            <h4 class="font-bold" data-i18n="testimonial3-name">Maria L.</h4>
-                            <p class="text-sm text-gray-500" data-i18n="testimonial3-role">Nurse</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic" data-i18n="testimonial3-text">"The goal tracking feature kept me motivated. I saved for my dream vacation in 8 months. The app paid for itself many times over!"</p>
-                </div>
-            </div>
+
+        <div class="timeline-step text-center">
+          <div class="timeline-circle">2</div>
+          <h3 class="text-2xl font-bold mb-3">Set your plan</h3>
+          <p class="text-gray-600">Agree on categories and targets together—simple, flexible, and easy to adjust.</p>
         </div>
-    </section>
-    
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-24 px-6 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="pricing-title">Simple Pricing</h2>
-                <p class="text-xl text-gray-600 mb-8" data-i18n="pricing-subtitle">Choose the plan that fits your goals</p>
-                
-                <!-- Toggle -->
-                <div class="flex items-center justify-center gap-4">
-                    <span id="monthly-label" class="font-semibold text-[#202833]" data-i18n="pricing-monthly">Monthly</span>
-                    <div id="pricing-toggle" class="toggle-switch">
-                        <div class="toggle-slider"></div>
-                    </div>
-                    <span id="annual-label" class="font-semibold text-gray-400" data-i18n="pricing-annual">Annual</span>
-                    <span id="savings-badge" class="hidden bg-[#FFD54F] text-[#202833] px-3 py-1 rounded-full text-sm font-bold" data-i18n="pricing-save">Save 20%</span>
-                </div>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Free Plan -->
-                <div class="glass rounded-3xl p-8 border-2 border-gray-200">
-                    <h3 class="text-2xl font-bold mb-2" data-i18n="plan-free-title">Free</h3>
-                    <div class="mb-6">
-                        <span class="text-5xl font-bold" data-i18n="plan-free-price">$0</span>
-                        <span class="text-gray-500" data-i18n="plan-free-period">/month</span>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <span class="text-[#00C896] mr-3">✓</span>
-                            <span data-i18n="plan-free-feature1">Basic budgeting tools</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-[#00C896] mr-3">✓</span>
-                            <span data-i18n="plan-free-feature2">1 savings goal</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-[#00C896] mr-3">✓</span>
-                            <span data-i18n="plan-free-feature3">Monthly spending reports</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-[#00C896] mr-3">✓</span>
-                            <span data-i18n="plan-free-feature4">Community support</span>
-                        </li>
-                    </ul>
-                    <a href="#download" class="btn-secondary w-full text-center" data-i18n="plan-free-cta">Get Started Free</a>
-                </div>
-                
-                <!-- Pro Plan -->
-                <div class="glass rounded-3xl p-8 border-2 border-[#00C896] relative">
-                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#00C896] to-[#FFD54F] text-white px-6 py-2 rounded-full text-sm font-bold" data-i18n="plan-pro-badge">
-                        Most Popular
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2" data-i18n="plan-pro-title">Pro</h3>
-                    <div class="mb-6">
-                        <span id="pro-price" class="text-5xl font-bold" data-i18n="plan-pro-price">$9.99</span>
-                        <span class="text-gray-500"><span data-i18n="plan-pro-period">/month</span></span>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <span class="text-[#00C896] mr-3">✓</span>
-                            <span data-i18n="plan-pro-feature1">AI-powered insights & recommendations</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-[#00C896] mr-3">✓</span>
-                            <span data-i18n="plan-pro-feature2">Unlimited savings goals</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-[#00C896] mr-3">✓</span>
-                            <span data-i18n="plan-pro-feature3">Real-time spending alerts</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-[#00C896] mr-3">✓</span>
-                            <span data-i18n="plan-pro-feature4">Auto-save round-ups</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-[#00C896] mr-3">✓</span>
-                            <span data-i18n="plan-pro-feature5">Priority support</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-[#00C896] mr-3">✓</span>
-                            <span data-i18n="plan-pro-feature6">Investment tracking</span>
-                        </li>
-                    </ul>
-                    <a href="#download" class="btn-primary w-full text-center" data-i18n="plan-pro-cta">Start Free Trial</a>
-                </div>
-            </div>
+
+        <div class="timeline-step text-center">
+          <div class="timeline-circle">3</div>
+          <h3 class="text-2xl font-bold mb-3">Log and improve</h3>
+          <p class="text-gray-600">Add quick expense notes in chat and track progress in organized threads.</p>
         </div>
-    </section>
-    
-    <!-- FAQs -->
-    <section id="faq" class="py-24 px-6">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="faq-title">Frequently Asked Questions</h2>
-                <p class="text-xl text-gray-600" data-i18n="faq-subtitle">Everything you need to know</p>
-            </div>
-            
-            <div class="space-y-0">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-i18n="faq1-question">Is my financial data secure with Cashchum?</span>
-                        <span class="faq-icon text-2xl text-[#00C896]">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p class="text-gray-600" data-i18n="faq1-answer">Absolutely. We use bank-level 256-bit encryption, and your data is never sold or shared with third parties. We're SOC 2 Type II certified and comply with all major financial regulations including GDPR and CCPA.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-i18n="faq2-question">How does the AI-powered savings work?</span>
-                        <span class="faq-icon text-2xl text-[#00C896]">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p class="text-gray-600" data-i18n="faq2-answer">Our AI analyzes your income, spending patterns, and goals to automatically transfer small amounts to your savings when you can afford it. It learns your habits over time and optimizes savings without impacting your daily spending.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-i18n="faq3-question">Can I cancel my subscription anytime?</span>
-                        <span class="faq-icon text-2xl text-[#00C896]">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p class="text-gray-600" data-i18n="faq3-answer">Yes! There are no long-term contracts or cancellation fees. You can downgrade to our free plan or cancel completely at any time from your account settings. Your data remains accessible for 90 days after cancellation.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-i18n="faq4-question">Which banks are supported?</span>
-                        <span class="faq-icon text-2xl text-[#00C896]">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p class="text-gray-600" data-i18n="faq4-answer">Cashchum works with over 10,000 financial institutions across North America, Europe, and Australia. This includes all major banks and most credit unions. You can check if your bank is supported during the signup process.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-i18n="faq5-question">What happens during the free trial?</span>
-                        <span class="faq-icon text-2xl text-[#00C896]">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p class="text-gray-600" data-i18n="faq5-answer">You get full access to all Pro features for 30 days with no credit card required. We'll send you a reminder before the trial ends. If you don't upgrade, you'll automatically continue on our free plan with no interruption.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span data-i18n="faq6-question">Does Cashchum charge any hidden fees?</span>
-                        <span class="faq-icon text-2xl text-[#00C896]">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p class="text-gray-600" data-i18n="faq6-answer">Never. The price you see is the price you pay. There are no transaction fees, account fees, or hidden charges. Your subscription covers unlimited transactions and all features within your plan tier.</p>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof (optional, keep generic) -->
+  <section class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Loved by Savers</h2>
+        <p class="text-xl text-gray-600">Real stories from real users</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass rounded-3xl p-8">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#00C896] to-[#FFD54F] rounded-full mr-4"></div>
+            <div><h4 class="font-bold">Jordan</h4><p class="text-sm text-gray-500">Student</p></div>
+          </div>
+          <p class="text-gray-600 italic">“The chat coach made budgeting feel simple. I finally stuck to a plan.”</p>
         </div>
-    </section>
-    
-    <!-- Privacy & Security -->
-    <section class="py-24 px-6 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4" data-i18n="security-title">Your Privacy, Our Priority</h2>
-                <p class="text-xl text-gray-600" data-i18n="security-subtitle">We take your financial security seriously</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass rounded-3xl p-8 text-center">
-                    <div class="text-6xl mb-4">🔒</div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="security1-title">End-to-End Encryption</h3>
-                    <p class="text-gray-600" data-i18n="security1-desc">All data is encrypted in transit and at rest using bank-level 256-bit AES encryption. Your credentials are never stored on our servers.</p>
-                </div>
-                
-                <div class="glass rounded-3xl p-8 text-center">
-                    <div class="text-6xl mb-4">🚫</div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="security2-title">No Data Selling</h3>
-                    <p class="text-gray-600" data-i18n="security2-desc">We never sell your data to advertisers or third parties. Your financial information belongs to you and stays with you.</p>
-                </div>
-                
-                <div class="glass rounded-3xl p-8 text-center">
-                    <div class="text-6xl mb-4">✓</div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="security3-title">Full Transparency</h3>
-                    <p class="text-gray-600" data-i18n="security3-desc">Our privacy policy is written in plain English. You have complete control over your data with one-click export and deletion options.</p>
-                </div>
-            </div>
+        <div class="glass rounded-3xl p-8">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFD54F] to-[#00C896] rounded-full mr-4"></div>
+            <div><h4 class="font-bold">Avery</h4><p class="text-sm text-gray-500">Freelancer</p></div>
+          </div>
+          <p class="text-gray-600 italic">“Quick expense notes in the chat are perfect when I’m on the go.”</p>
         </div>
-    </section>
-    
-    <!-- Final CTA Banner -->
-    <section id="download" class="py-24 px-6 gradient-bg relative overflow-hidden">
-        <div class="gradient-orb" style="top: -300px; left: 50%; animation-delay: -2s;"></div>
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6" data-i18n="cta-title">Start Saving Smarter Today</h2>
-            <p class="text-xl text-white/90 mb-8" data-i18n="cta-subtitle">Join thousands who are building wealth effortlessly with Cashchum</p>
-            
-            <div class="flex flex-wrap justify-center gap-4 mb-8">
-                <a href="#" class="inline-flex items-center bg-[#202833] text-white px-8 py-4 rounded-2xl font-semibold hover:bg-[#2a3340] transition-all">
-                    <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.09997 22C7.78997 22.05 6.79997 20.68 5.95997 19.47C4.24997 17 2.93997 12.45 4.69997 9.39C5.56997 7.87 7.12997 6.91 8.81997 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/>
-                    </svg>
-                    <div class="text-left">
-                        <div class="text-xs opacity-90" data-i18n="cta-app-store-small">Download on the</div>
-                        <div class="text-lg font-bold" data-i18n="cta-app-store">App Store</div>
-                    </div>
-                </a>
-                
-                <a href="#" class="inline-flex items-center bg-[#202833] text-white px-8 py-4 rounded-2xl font-semibold hover:bg-[#2a3340] transition-all">
-                    <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
-                    </svg>
-                    <div class="text-left">
-                        <div class="text-xs opacity-90" data-i18n="cta-play-store-small">Get it on</div>
-                        <div class="text-lg font-bold" data-i18n="cta-play-store">Google Play</div>
-                    </div>
-                </a>
-            </div>
-            
-            <div class="glass-dark rounded-2xl p-6 max-w-md mx-auto">
-                <p class="text-white mb-4 font-semibold" data-i18n="cta-email-title">Or get early access via email</p>
-                <form id="email-form" class="flex gap-2">
-                    <input 
-                        type="email" 
-                        id="email-input"
-                        placeholder="Enter your email" 
-                        data-i18n-placeholder="cta-email-placeholder"
-                        class="flex-1 px-4 py-3 rounded-xl border-2 border-white/20 bg-white/10 text-white placeholder-white/60 focus:outline-none focus:border-white/40"
-                        required
-                    />
-                    <button type="submit" class="bg-white text-[#00C896] px-6 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all" data-i18n="cta-email-submit">
-                        Notify Me
-                    </button>
-                </form>
-                <p id="form-message" class="text-sm text-white/80 mt-3 hidden"></p>
-            </div>
+        <div class="glass rounded-3xl p-8">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#00C896] to-[#FFD54F] rounded-full mr-4"></div>
+            <div><h4 class="font-bold">Sam</h4><p class="text-sm text-gray-500">Engineer</p></div>
+          </div>
+          <p class="text-gray-600 italic">“Conversation threads keep everything tidy. I can resume anytime.”</p>
         </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="bg-[#202833] text-white py-12 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="text-2xl font-bold mb-4" data-i18n="footer-logo">💰 Cashchum</div>
-                    <p class="text-white/60 text-sm" data-i18n="footer-tagline">Building wealth, one smart decision at a time.</p>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4" data-i18n="footer-product">Product</h4>
-                    <ul class="space-y-2 text-white/60 text-sm">
-                        <li><a href="#features" class="hover:text-white transition-colors" data-i18n="footer-features">Features</a></li>
-                        <li><a href="#pricing" class="hover:text-white transition-colors" data-i18n="footer-pricing">Pricing</a></li>
-                        <li><a href="#faq" class="hover:text-white transition-colors" data-i18n="footer-faq">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors" data-i18n="footer-roadmap">Roadmap</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4" data-i18n="footer-company">Company</h4>
-                    <ul class="space-y-2 text-white/60 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors" data-i18n="footer-about">About Us</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors" data-i18n="footer-careers">Careers</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors" data-i18n="footer-blog">Blog</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors" data-i18n="footer-contact">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4" data-i18n="footer-legal">Legal</h4>
-                    <ul class="space-y-2 text-white/60 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors" data-i18n="footer-privacy">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors" data-i18n="footer-terms">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors" data-i18n="footer-security">Security</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors" data-i18n="footer-compliance">Compliance</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-white/60 text-sm mb-4 md:mb-0" data-i18n="footer-copyright">
-                    © 2025 Cashchum. All rights reserved.
-                </p>
-                <div class="flex gap-6">
-                    <a href="#" class="text-white/60 hover:text-white transition-colors" aria-label="Twitter">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-white/60 hover:text-white transition-colors" aria-label="LinkedIn">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-                            <circle cx="4" cy="4" r="2"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-white/60 hover:text-white transition-colors" aria-label="Instagram">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-24 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Simple Pricing</h2>
+        <p class="text-xl text-gray-600 mb-8">Choose the plan that fits your goals</p>
+
+        <!-- (Optional) Toggle visuals left in place; prices shown in app -->
+        <div class="flex items-center justify-center gap-4">
+          <span id="monthly-label" class="font-semibold text-[#202833]">Monthly</span>
+          <div id="pricing-toggle" class="toggle-switch"><div class="toggle-slider"></div></div>
+          <span id="annual-label" class="font-semibold text-gray-400">Annual</span>
+          <span id="savings-badge" class="hidden bg-[#FFD54F] text-[#202833] px-3 py-1 rounded-full text-sm font-bold">Save more annually</span>
         </div>
-    </footer>
-    
-    <!-- JavaScript -->
-    <script>
-        // Header scroll effect
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-        
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-        });
-        
-        // Close mobile menu when clicking a link
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-            });
-        });
-        
-        // Pricing toggle
-        const pricingToggle = document.getElementById('pricing-toggle');
-        const monthlyLabel = document.getElementById('monthly-label');
-        const annualLabel = document.getElementById('annual-label');
-        const savingsBadge = document.getElementById('savings-badge');
-        const proPrice = document.getElementById('pro-price');
-        
-        const monthlyPrice = '$9.99';
-        const annualPrice = '$7.99';
-        
-        pricingToggle.addEventListener('click', () => {
-            pricingToggle.classList.toggle('active');
-            
-            if (pricingToggle.classList.contains('active')) {
-                // Annual selected
-                monthlyLabel.classList.add('text-gray-400');
-                monthlyLabel.classList.remove('text-[#202833]');
-                annualLabel.classList.remove('text-gray-400');
-                annualLabel.classList.add('text-[#202833]');
-                savingsBadge.classList.remove('hidden');
-                proPrice.textContent = annualPrice;
-            } else {
-                // Monthly selected
-                monthlyLabel.classList.remove('text-gray-400');
-                monthlyLabel.classList.add('text-[#202833]');
-                annualLabel.classList.add('text-gray-400');
-                annualLabel.classList.remove('text-[#202833]');
-                savingsBadge.classList.add('hidden');
-                proPrice.textContent = monthlyPrice;
-            }
-        });
-        
-        // FAQ Accordion
-        const faqItems = document.querySelectorAll('.faq-item');
-        
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            const answer = item.querySelector('.faq-answer');
-            const icon = item.querySelector('.faq-icon');
-            
-            question.addEventListener('click', () => {
-                // Close other items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.querySelector('.faq-answer').classList.remove('active');
-                        otherItem.querySelector('.faq-icon').classList.remove('active');
-                    }
-                });
-                
-                // Toggle current item
-                answer.classList.toggle('active');
-                icon.classList.toggle('active');
-            });
-        });
-        
-        // Email form validation
-        const emailForm = document.getElementById('email-form');
-        const emailInput = document.getElementById('email-input');
-        const formMessage = document.getElementById('form-message');
-        
-        emailForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const email = emailInput.value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (!emailRegex.test(email)) {
-                formMessage.textContent = 'Please enter a valid email address.';
-                formMessage.classList.remove('hidden');
-                formMessage.style.color = '#FFD54F';
-                return;
-            }
-            
-            // Success message
-            formMessage.textContent = '✓ Success! Check your inbox for early access details.';
-            formMessage.classList.remove('hidden');
-            formMessage.style.color = '#00C896';
-            emailInput.value = '';
-            
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                formMessage.classList.add('hidden');
-            }, 5000);
-        });
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
-            });
-        });
-        
-        // Lazy load images (if you add real images later)
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        if (img.dataset.src) {
-                            img.src = img.dataset.src;
-                            img.removeAttribute('data-src');
-                            observer.unobserve(img);
-                        }
-                    }
-                });
-            });
-            
-            document.querySelectorAll('img[data-src]').forEach(img => {
-                imageObserver.observe(img);
-            });
-        }
-        
-        // Add animation on scroll
-        const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.feature-card, .timeline-step, .glass');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '0';
-                        entry.target.style.transform = 'translateY(30px)';
-                        
-                        setTimeout(() => {
-                            entry.target.style.transition = 'all 0.6s ease-out';
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }, 100);
-                        
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-            
-            elements.forEach(el => observer.observe(el));
-        };
-        
-        // Initialize animations
-        if (window.innerWidth > 768) {
-            animateOnScroll();
-        }
-        
-        // <!-- INSERT YOUR ANALYTICS CODE HERE -->
-        // Example: Google Analytics, Plausible, Fathom, etc.
-        // <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    </script>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Free -->
+        <div class="glass rounded-3xl p-8 border-2 border-gray-200">
+          <h3 class="text-2xl font-bold mb-2">Free</h3>
+          <div class="mb-6">
+            <span class="text-5xl font-bold">$0</span>
+            <span class="text-gray-500">/month</span>
+          </div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start"><span class="text-[#00C896] mr-3">✓</span><span>Core budgeting and chat basics</span></li>
+            <li class="flex items-start"><span class="text-[#00C896] mr-3">✓</span><span>1 conversation thread</span></li>
+            <li class="flex items-start"><span class="text-[#00C896] mr-3">✓</span><span>Manual expense notes</span></li>
+            <li class="flex items-start"><span class="text-[#00C896] mr-3">✓</span><span>Light tips inside chat</span></li>
+          </ul>
+          <a href="#download" class="btn-secondary w-full text-center">Get Started Free</a>
+        </div>
+
+        <!-- Pro -->
+        <div class="glass rounded-3xl p-8 border-2 border-[#00C896] relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#00C896] to-[#FFD54F] text-white px-6 py-2 rounded-full text-sm font-bold">
+            Most Popular
+          </div>
+          <h3 class="text-2xl font-bold mb-2">Pro</h3>
+          <div class="mb-6">
+            <span class="text-5xl font-bold">See price in app</span>
+            <span class="text-gray-500">/localized</span>
+          </div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start"><span class="text-[#00C896] mr-3">✓</span><span>Full AI coaching experience</span></li>
+            <li class="flex items-start"><span class="text-[#00C896] mr-3">✓</span><span>Unlimited conversation threads</span></li>
+            <li class="flex items-start"><span class="text-[#00C896] mr-3">✓</span><span>Advanced planning suggestions</span></li>
+            <li class="flex items-start"><span class="text-[#00C896] mr-3">✓</span><span>Priority support</span></li>
+          </ul>
+          <a href="#download" class="btn-primary w-full text-center">View in App</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section id="faq" class="py-24 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Frequently Asked Questions</h2>
+        <p class="text-xl text-gray-600">Everything you need to know</p>
+      </div>
+
+      <div class="space-y-0">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is my data private?</span><span class="faq-icon text-2xl text-[#00C896]">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600">Cashchum uses a privacy‑first design. Data is encrypted in transit and at rest, and we never sell your data. You can export or delete your data any time.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How does the AI help me budget?</span><span class="faq-icon text-2xl text-[#00C896]">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600">Chat to plan your month, set targets, and log expenses quickly. The coach offers practical guidance based on your inputs—no bank connection required.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Do I need to link bank accounts?</span><span class="faq-icon text-2xl text-[#00C896]">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600">No. Cashchum works with manual logging and AI coaching today, so you keep full control while you build the habit.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I cancel anytime?</span><span class="faq-icon text-2xl text-[#00C896]">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600">Yes. Manage or cancel your subscription in your App Store account settings. Your access continues until the current period ends.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is there a free trial?</span><span class="faq-icon text-2xl text-[#00C896]">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600">You can start on the Free plan right away. Any trial or promotional pricing will be shown in the app if available in your region.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Which platforms are supported?</span><span class="faq-icon text-2xl text-[#00C896]">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600">Cashchum is available on iPhone and iPad. Android support will be announced on our website when ready.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy & Security -->
+  <section class="py-24 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Your Privacy, Our Priority</h2>
+        <p class="text-xl text-gray-600">We take your data seriously</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass rounded-3xl p-8 text-center">
+          <div class="text-6xl mb-4">🔒</div>
+          <h3 class="text-xl font-bold mb-3">Encryption by default</h3>
+          <p class="text-gray-600">Your data is encrypted in transit and at rest. We keep security simple and transparent.</p>
+        </div>
+        <div class="glass rounded-3xl p-8 text-center">
+          <div class="text-6xl mb-4">🚫</div>
+          <h3 class="text-xl font-bold mb-3">We don’t sell data</h3>
+          <p class="text-gray-600">Your financial information is yours. We don’t sell it to advertisers or brokers—ever.</p>
+        </div>
+        <div class="glass rounded-3xl p-8 text-center">
+          <div class="text-6xl mb-4">✓</div>
+          <h3 class="text-xl font-bold mb-3">You’re in control</h3>
+          <p class="text-gray-600">Export or delete your data from settings at any time—no hoops, no hidden steps.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section id="download" class="py-24 px-6 gradient-bg relative overflow-hidden">
+    <div class="gradient-orb" style="top:-300px; left:50%; animation-delay:-2s;"></div>
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Start budgeting smarter today</h2>
+      <p class="text-xl text-white/90 mb-8">Join people who are building better money habits with Cashchum</p>
+
+      <div class="flex flex-wrap justify-center gap-4 mb-8">
+        <!-- App Store -->
+        <a href="#" class="inline-flex items-center bg-[#202833] text-white px-8 py-4 rounded-2xl font-semibold hover:bg-[#2a3340] transition-all" aria-label="Download on the App Store">
+          <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
+          <div class="text-left">
+            <div class="text-xs opacity-90">Download on the</div>
+            <div class="text-lg font-bold">App Store</div>
+          </div>
+        </a>
+
+        <!-- Hide Google Play until Android -->
+        <!--
+        <a href="#" class="inline-flex items-center bg-[#202833] text-white px-8 py-4 rounded-2xl font-semibold hover:bg-[#2a3340] transition-all" aria-label="Get it on Google Play">
+          <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+          <div class="text-left">
+            <div class="text-xs opacity-90">Get it on</div>
+            <div class="text-lg font-bold">Google Play</div>
+          </div>
+        </a>
+        -->
+      </div>
+
+      <div class="glass-dark rounded-2xl p-6 max-w-md mx-auto">
+        <p class="text-white mb-4 font-semibold">Or get early access via email</p>
+        <form id="email-form" class="flex gap-2">
+          <input type="email" id="email-input" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-xl border-2 border-white/20 bg-white/10 text-white placeholder-white/60 focus:outline-none focus:border-white/40" required/>
+          <button type="submit" class="bg-white text-[#00C896] px-6 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all">Notify Me</button>
+        </form>
+        <p id="form-message" class="text-sm text-white/80 mt-3 hidden"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#202833] text-white py-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <div class="text-2xl font-bold mb-4">💰 Cashchum</div>
+          <p class="text-white/60 text-sm">Building better money habits, one smart decision at a time.</p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Product</h4>
+          <ul class="space-y-2 text-white/60 text-sm">
+            <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Roadmap</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Company</h4>
+          <ul class="space-y-2 text-white/60 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Legal</h4>
+          <ul class="space-y-2 text-white/60 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Support</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-white/50 text-sm">© <span id="year"></span> Cashchum. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts: header blur, mobile menu, FAQ, year -->
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+    });
+
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn?.addEventListener('click', () => mobileMenu.classList.toggle('active'));
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const q = item.querySelector('.faq-question');
+      const a = item.querySelector('.faq-answer');
+      const icon = item.querySelector('.faq-icon');
+      q.addEventListener('click', () => {
+        a.classList.toggle('active');
+        icon.classList.toggle('active');
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Analytics: replace with your tracking code -->
+  <!-- <script defer src="..."></script> -->
 </body>
 </html>
